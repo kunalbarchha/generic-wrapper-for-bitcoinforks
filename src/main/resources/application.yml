@@ -1,0 +1,44 @@
+bitcoin:
+  base_url: http://127.0.0.1:8778
+  rpc_user: YOUR-RPC-USER
+  rpc_password: YOUR-RPC-PASSWORD
+  block_confimation: 2
+
+spring:
+  profiles:
+    active: local
+  application:
+    name: coin-service
+
+server:
+  port: 9050
+  context-path: /coin/
+
+
+logging:
+  level:
+    org.springframework.web: ERROR
+    org.hibernate: ERROR
+    com.coin.wrapper: DEBUG
+    org.springframework.data: ERROR
+    org.springframework.security: ERROR
+    org.springframework.web.client: DEBUG
+  file: logs/coin-service.log
+
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+
+
+---
+spring:
+  profiles: local
+  data:
+    mongodb:
+      database: coin-service-database
+      host: localhost
+      port: 27017
